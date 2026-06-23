@@ -41,10 +41,62 @@ console.log(">>>>>>>>>>>>>>>>>>>>>")
 // && (AND) || (OR) ! (NOT)
 var status = open
 var jamBuka = 9
-var jamTutup = 17
+var jamTutup = 22
 
-if(status == true && jamBuka <= 9 && 9 <= jamTutup){
+if(status == true && jamBuka <= 8 && 9 <= jamTutup){
     console.log("Toko sedang buka")
 } else {
     console.log("Toko sedang tutup")
 }
+
+// Operator String
+console.log("Operator String")
+console.log(">>>>>>>>>>>>>>>>>>>>>")
+
+var word = "Web Programing"
+console.log(word)
+console.log(word.length)   
+console.log(word.charAt(1))
+console.log(`${word} Tahun 2026`)
+
+var word3 = word.substring(3)
+console.log(word.toUpperCase())
+console.log(word.toLowerCase())
+console.log(word.toString())
+console.log(word.toWellFormed())
+console.log(word.trim())
+console.log(word.replaceAll("r", "R"))
+
+
+console.log("Mengubah menjadi String dan Angka")
+console.log(">>>>>>>>>>>>>>>>>>>>>")
+
+// Mengubah menjadi String
+// .toString()
+// String(namaVariable)
+
+var angka = 10
+console.log(angka)
+console.log(angka+angka)
+
+console.log(String(angka))
+console.log(angka.toString())
+
+// Mengubah jadi angka/number
+// .parseInt(namaVariable)
+var angkaString = 20
+console.log(angkaString)
+console.log(angkaString+angkaString)
+
+console.log(Number(angkaString))
+console.log(parseInt(angkaString))
+
+var angka1 = 30.7
+var angka2 = 30.9
+ 
+ console.log(angka1)
+ console.log(angka2)
+
+ 
+
+
