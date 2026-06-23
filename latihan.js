@@ -1,7 +1,28 @@
 console.log("Hello, World!");     
 var name = "John Doe";
 var nomorUrut = 12
+var hari = "Senin"
 
-console.log("nama")
 console.log(name)
 console.log(nomorUrut)
+console.log(hari)
+
+var open = true 
+if(open == true){
+    console.log("open the door")
+}
+
+// Operator Aritmatika
+var a = 5
+var b = 5
+var tambah = a + b 
+var kurang = a - b
+var kali = a * b
+var bagi = a / b
+var modulus = a % b
+
+console.log("Hasil Penjumlahan:", tambah)
+console.log("Hasil Pengurangan:", kurang)
+console.log("Hasil Perkalian:", kali)
+console.log("Hasil Pembagian:", bagi)
+console.log("Hasil Modulus:", modulus)
