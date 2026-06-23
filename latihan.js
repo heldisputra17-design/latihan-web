@@ -26,3 +26,25 @@ console.log("Hasil Pengurangan:", kurang)
 console.log("Hasil Perkalian:", kali)
 console.log("Hasil Pembagian:", bagi)
 console.log("Hasil Modulus:", modulus)
+
+// Operator Perbandingan
+console.log("Operator Pebandingan")
+console.log(">>>>>>>>>>>>>>>>>>>>>")
+
+console.log(1 != 1)
+console.log(1 !== 2)
+console.log(1 >= 2)
+
+console.log("Operator Kondisional")
+console.log(">>>>>>>>>>>>>>>>>>>>>")
+
+// && (AND) || (OR) ! (NOT)
+var status = open
+var jamBuka = 9
+var jamTutup = 17
+
+if(status == true && jamBuka <= 9 && 9 <= jamTutup){
+    console.log("Toko sedang buka")
+} else {
+    console.log("Toko sedang tutup")
+}
