@@ -97,6 +97,113 @@ var angka2 = 30.9
  console.log(angka1)
  console.log(angka2)
 
- 
+ console.log("================================")
+console.log("CONDITIONAL STATEMENT")
+
+var mood = 1
+if(mood == "1"){
+    console.log("muncul angka 1")
+}
+
+var mood = "happy"    
+if(mood == "sad"){
+    console.log("saya lagi senang")
+}else{
+    console.log("saya lagi sedih")
+}
 
 
+var mood = "kesel"    
+if(mood == "happy"){
+    console.log("saya lagi senang")
+}else if(mood == "kesel"){
+    console.log("saya lagi kesel")
+}else{
+    console.log("saya lagi sedih")
+}
+
+console.log("================================")
+
+var minimarketStatus = "buka"
+var telur = 'ready'
+var buah = 'ready'
+if ( minimarketStatus == "buka" ) { 
+    console.log("Saya akan membeli buah dan telur")
+    if ( telur == 'kosong' || buah == 'kosong' ) {
+        console.log("Belanja saya masih kurang")
+    }else if ( telur == 'ready' ) {
+        console.log("Telur tersedia")
+    }else if ( buah == 'soldout' ) {
+        console.log("Buah habis")
+    }
+}else{
+    console.log("Minimarket masih tutup, saya akan pergi lagi kembali")
+}
+
+
+console.log("================================")
+
+var umur = 35
+
+if(umur >= 17){
+    console.log("Sudah memiliki ktp")
+    if (umur < 20){
+        console.log("Masih dibawah 20 tahun")
+    }else if (umur < 30){
+        console.log("Usia antara 20 dan 30 tahun")
+    }else if (umur < 40){
+        console.log("Usia antara 30 dan 40 tahun")
+    }else{
+        console.log("Sudah pasti memiliki ktp dan sudah tua")
+    }
+}else{
+    console.log("Belum memiliki ktp")
+}
+
+console.log("================================")
+
+var warna = "biru"
+switch(warna){
+    case "merah":
+        console.log("Warna yang dipilih adalah merah")
+        break
+    case "biru":
+        console.log("Warna yang dipilih adalah biru")
+        break
+    default:
+        console.log("Warna tidak dikenal")
+}
+
+var jumlah = 0
+for (deret = 5; deret > 0; deret--){jumlah += deret
+    console.log("Jumlah saat ini :"+ jumlah)
+}
+console.log("Jumlah akhir :"+ jumlah)
+
+console.log("================================")
+
+//cara 1
+var flag = 1;
+while(flag < 10){
+    console.log("Iterasi ke :" + flag)
+    flag++;
+}
+console.log("================================")
+//cara 2 
+var flag = 0;
+do {
+    console.log("Iterasi ke :" + flag)
+    flag++;
+} while(flag < 10)
+
+    console.log("================================")
+
+    var flag = 2;
+while(flag <= 10){
+    console.log("Iterasi ke :" + flag)
+    flag += 2;
+}
+console.log("================================")
+for (var angka = 2; angka < 10; angka++){
+    console.log("Iterasi ke :", angka)
+}
