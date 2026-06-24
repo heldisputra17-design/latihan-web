@@ -41,7 +41,32 @@ var nama = "Muhammad Desta Greddy Aulia Rahman"
 console.log("Sebelum split")
 console.log(nama)
 console.log("Sesudah Split")
-console.log(nama.split(" "))
+console.log(nama.split(""))
 
 var nama = "Muhammad Desta Greddy Aulia Rahman"
-console.log(angka.length)
+console.log("Sebelum Split")
+console.log(nama)
+console.log("Sesudah split")
+console.log(nama.length)
+
+//sort
+var newPeserta = ["Andra","Taufik","Adit","Debi"]
+console.log("sebelum sort")
+console.log(peserta)
+console.log("sesudah di sort")
+console.log(peserta.sort)
+
+
+//Slice 
+console.log("sebelum slice")
+console.log(newPeserta)
+console.log("sesudah slice")
+var newPeserta = newPeserta.slice(2,3)
+    console.log(newPeserta)
+
+//Slice 
+console.log("sebelum splice")
+console.log(newPeserta)
+console.log("sesudah splice")
+newPeserta.splice(2,0,"Heldi","Huda")
+    console.log(newPeserta)
