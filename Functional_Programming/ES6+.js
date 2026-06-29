@@ -96,7 +96,7 @@
 
 // console.log(person)
 
-//Destructuring Array
+// Destructuring Array
 // let number = [1,5,6,7,8]
 
 // // let number1 = number[0]
@@ -105,8 +105,8 @@
 // // let number4 = number[3]
 // // let number5 = number[4]
 
-// let [num1, num2, num3, num4, lastNum] = [1,5,6,7,8]
-//  console.log(lastNum)
+let [num1, num2, num3, num4, lastNum] = [1,5,6,7,8]
+ console.log(lastNum)
 
 //Rest Parameter Array
 // let [num1, , , , lastNum] = [1,5,6,7,8]
@@ -142,13 +142,13 @@
 // buah = ["Mangga", ...buah, "Jeruk", "Manggis"]
 // console.log(buah)
 
-let botol = {
-    merk : "Aqua",
-    ukuran : "500ml",
-    harga : 5000
-}
-// botol.warna = "Biru"
-// botol.kemasan = "Plastik"
+// let botol = {
+//     merk : "Aqua",
+//     ukuran : "500ml",
+//     harga : 5000
+// }
+// // botol.warna = "Biru"
+// // botol.kemasan = "Plastik"
 
-botol = {...botol, warna: "Biru", kemasan: "Plastik", bentuk: "Bulat"}
-console.log(botol)
+// botol = {...botol, warna: "Biru", kemasan: "Plastik", bentuk: "Bulat"}
+// console.log(botol)
