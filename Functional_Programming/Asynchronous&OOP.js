@@ -193,16 +193,40 @@ console.log(Car.hello());
 
 //Inheritance atau Pewarisan
 
+// class Person{
+//     constructor(nama){
+//         this.nama = nama
+//         this._mapel = ""
+//     }
+//     get personMapel(){
+//         return this._mapel
+//     }
+//     set personMapel(mapel){
+//         this._mapel = mapel
+//     }
+//     berjalan(){
+//         return "Prok Prok Prok!!"
+//     }
+// }
+
+// class School extends Person{
+//     constructor(nama){
+//         super(nama)
+//         this.School = ""
+//     }
+// }
+
+
+// var guru = new School("Pak Budi")
+// guru.personMapel = "Matematika" 
+// console.log(guru)
+// console.log(guru.berjalan())
+// console.log(Person.berjalan())
+
 class Person{
     constructor(nama){
         this.nama = nama
-        this._mapel = ""
-    }
-    get personMapel(){
-        return this._mapel
-    }
-    set personMapel(mapel){
-        this._mapel = mapel
+        this.mapel = ""
     }
     berjalan(){
         return "Prok Prok Prok!!"
@@ -218,22 +242,6 @@ class School extends Person{
 
 
 var guru = new School("Pak Budi")
-guru.personMapel = "Matematika" 
-console.log(guru)
-console.log(guru.berjalan())
-// console.log(Person.berjalan())
-
-class Person{
-    constructor(nama){
-        this.nama = nama
-        this.mapel = ""
-    }
-    berjalan(){
-        return "Prok Prok Prok!!"
-    }
-}
-
-var guru = new Person("Pak Budi")
 guru.personMapel = "Matematika" 
 console.log(guru)
 console.log(guru.berjalan())
