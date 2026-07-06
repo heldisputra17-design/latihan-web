@@ -116,7 +116,6 @@ const connectionPool = require("../config/db.js")
 
 
 
-
 const readMovie = (req, res) => {
    let queryText = 'SELECT * FROM db_movie.tb_movie'
 
@@ -129,4 +128,56 @@ const readMovie = (req, res) => {
    })
 }
 
-module.exports = readMovie
+const readMovieById = (req, res) => {
+   let {id} = req.params
+   let queryText = `SELECT * FROM tb_movies WHERE id_tb_movie = ${id}`
+      connectionPool.query(queryText, (err, data) => {
+      if(err){
+         console.log(err)
+         return
+      }
+      res.json(data)
+   })
+}
+
+const createMovie = (req, res) => {
+   let {title, year} = req.body
+   let queryText = `INSERT INTO tb_movies (title_tb_movie, year_tb_movie)
+                    VALUES ('${title}', ${year})`
+   connectionPool.query(queryText, (err, data) => {
+      if(err){
+       console.log(err)
+       return
+      }
+      res.json('Message : Berhasil')
+   })
+}
+
+const updateMovie = (req, res) => {
+   let {title, year} = req.body
+   let {id} = req.params
+   let queryText = `UPDATE tb_movies
+                    SET title_tb_movie = '${title}', year_tb_movie = ${year}
+                    WHERE id_tb_movie = ${id}`
+      connectionPool.query(queryText, (err, data) => {
+      if(err){
+       console.log(err)
+       return
+      }
+      res.json('Message : Update Berhasil')
+   })
+}
+
+const deleteMovie = (req, res) => {
+   let {id} = req.params
+   let queryText = `DELETE FROM tb_movies WHERE id_tb_movie = ${id}`
+       connectionPool.query(queryText, (err, data) => {
+       if(err) {
+         console.log(err)
+         return
+       }
+      res.json('Movie Berhasil di Hapus')
+    })
+}
+
+module.exports = {readMovie, readMovieById, createMovie, updateMovie, deleteMovie}

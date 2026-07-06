@@ -5,7 +5,7 @@ const connectionPool = mysql.createPool({
     user     : 'root',
     password : 'root',
     database : 'db_movie',
-    port : 3306
+    port     : 3306
 
 });
 
