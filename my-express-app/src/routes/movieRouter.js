@@ -16,4 +16,3 @@ movieRouter.get('/movies', getMovieApi)
 movieRouter.get('/movies:id', getMovieByIdApi)
 
 module.exports = { movieRouter }
-
