@@ -1,10 +1,6 @@
 const connectionPool = require("../config/db")
 const bcrypt = require("bcrypt")
 
-const login = (req, res) => {
-   res.send("Login Berhasil")
-}
-
 const register = (req, res) => {
    let {email, nama, pass} = req.body
    let queryText = `SELECT * FROM tb_user WHERE email_tb_user = "${email}"`
@@ -15,6 +11,13 @@ const register = (req, res) => {
         return res.status(500).json({
          Status: "Failed",
          Message: err.message
+        })
+      }
+
+      if(result.length > 0) {
+        return res.status(500).json({
+          Status : "Failed",
+          Message: "Email user sudah terdaftar"
         })
       }
       bcrypt.hash(pass, 10, (err, hashedPassword) => {
@@ -47,6 +50,21 @@ const register = (req, res) => {
    
 })
 
+}
+
+const login = (req, res) => {
+  let {email, pass} = req.body
+  let queryText =`SELECT * FROM tb_user WHERE email_tb_user = ${email}`
+
+  connectionPool.query(queryText, (err, result) => {
+              if(err) {
+        console.log(err)
+        return res.status(500).json({
+         Status: "Failed",
+         Message: err.message
+        })
+      }
+  })
 }
 
 module.exports = {login, register}
