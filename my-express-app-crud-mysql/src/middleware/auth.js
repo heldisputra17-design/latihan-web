@@ -4,7 +4,7 @@ const { authPlugins } = require('mysql2')
 
 const authJWT = (req, res, next) => {
    const authHeader = req.header('Authorization')
-
+  
    if(!authHeader){
       res.setHeader('WWW-Authenticate','bearer')
 
