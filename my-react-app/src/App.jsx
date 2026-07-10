@@ -1,7 +1,10 @@
 import './App.css'
 import Welcome from './components/Welcome'
+import Counter from './components/Counter'
+import { useState } from 'react'
 
 function App() {
+  const [count, setCount] = useState(0)
   let peserta = [
     {nama:"Rendra", kota:"Samarinda", umur:15},
     {nama:"Andra", kota:"Balikpapan", umur:16},
@@ -23,7 +26,15 @@ function App() {
         }
 
       </div>
+              <button
+          type="button"
+          className="counter"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </button>
     </>
+    
   )
 }
 
