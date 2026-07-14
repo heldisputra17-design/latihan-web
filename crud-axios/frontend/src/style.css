@@ -1,0 +1,127 @@
+.table-movie {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.table-movie table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-movie td,
+.table-movie th {
+  border: 1px solid #c9c9c9;
+  padding: 8px;
+}
+
+.table-movie tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-movie tr:hover {
+  background-color: #ddd;
+}
+
+.table-movie th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #047baa;
+  color: white;
+}
+
+.div-input {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.div-input form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.div-input label {
+  display: block;
+  margin-top: 8px;
+}
+
+.div-input input[type="text"],
+.div-input input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.form-buttons input[type="submit"],
+.form-buttons button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+}
+
+.btn-submit {
+  background-color: #4caf50;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+}
+
+.btn-update {
+  background-color: #2196f3;
+}
+
+.btn-update:hover {
+  background-color: #1976d2;
+}
+
+.btn-cancel {
+  background-color: #9e9e9e;
+}
+
+.btn-cancel:hover {
+  background-color: #757575;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.btn-edit:hover {
+  background-color: #ffb300;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
