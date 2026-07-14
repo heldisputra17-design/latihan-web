@@ -1,103 +1,85 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:3000/api/movie";
+import { use, useEffect, useState } from "react";
 
 const CrudAxios = () => {
-  const [movies, setMovie] = useState([]);
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [editId, setEditId] = useState(null);
+  const [data, setData] = useState([]);
+  const [input, setInput] = useState({ movieTitle: "", movieYear: 0 });
 
   const fetchData = () => {
-    axios.get(API_URL).then((res) => {
+    axios.get("http://localhost:3000/api/movie").then((res) => {
       setData(res.data);
     });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:3000/api/movie", {
+        title: input.movieTitle,
+        year: input.movieYear,
+      });
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleChange = (event) => {
+    let { value, name } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/movie/${id}`);
+      fetchData();
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleEdit = async (id) => {
+    try {
+      let respond = await axios.get(`http://localhost:3000/api/movie/${id}`);
+      console.log(respond);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || !year) return;
-
-    const payload = { title, year: Number(year) };
-
-    if (editId) {
-      axios.put(`${API_URL}/${editId}`, payload).then(() => {
-        resetForm();
-        fetchFilms();
-      });
-    } else {
-      axios.post(API_URL, payload).then(() => {
-        resetForm();
-        fetchFilms();
-      });
-    }
-  };
-
-//   const handleEdit = (film) => {
-//     setTitle(film.title_tb_movie);
-//     setYear(film.year_tb_movie);
-//     setEditId(film.id_tb_movie);
-//   };
-
-//   const handleDelete = (id) => {
-//     if (!confirm("Yakin ingin menghapus data ini?")) return;
-//     axios.delete(`${API_URL}/${id}`).then(() => {
-//       fetchFilms();
-//     });
-//   };
-
-  const resetForm = () => {
-    setTitle("");
-    setYear("");
-    setEditId(null);
-  };
-
   return (
     <>
-      <h1>CRUD AXIOS</h1>
-      <div className="div-input">
+      <h1>CURD AXIOS</h1>
+      <div className="div-input-movie">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="movietitle">Input Movie</label>
+          <label htmlFor="movieTitle">Movie Title</label>
           <input
             type="text"
-            id="movietitle"
-            placeholder="Your Movie title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            id="movieTitle"
+            name="movieTitle"
+            placeholder="Input Your Movie Title.."
+            onChange={handleChange}
             required
           />
 
-          <label htmlFor="movieyear">Input Tahun</label>
+          <label htmlFor="movieYear">Movie Year</label>
           <input
             type="number"
-            id="movieyear"
-            placeholder="Your Movie year"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
+            id="movieYear"
+            name="movieYear"
+            placeholder="Input Movie Year.."
+            onChange={handleChange}
             required
           />
 
-          <div className="form-buttons">
-            <input
-              type="submit"
-              value={editId ? "Update" : "Submit"}
-              className={editId ? "btn-update" : "btn-submit"}
-            />
-            {editId && (
-              <button type="button" className="btn-cancel" onClick={resetForm}>
-                Batal
-              </button>
-            )}
-          </div>
+          <input type="submit" value="Submit" />
         </form>
       </div>
-
-      <div className="table-movie">
+      <div className="div-table-movie">
         <table>
           <thead>
             <tr>
@@ -108,38 +90,40 @@ const CrudAxios = () => {
             </tr>
           </thead>
           <tbody>
-            {movies.length > 0 ? (
-              movies.map((item) => (
-                <tr key={item.id_tb_movie}>
-                  <td>{item.id_tb_movie}</td>
+            {data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
                   <td>{item.title_tb_movie}</td>
                   <td>{item.year_tb_movie}</td>
                   <td>
-                    {/* <button
-                      className="btn-edit"
-                      onClick={() => handleEdit(item)}
+                    <button
+                      className="bt-del"
+                      onClick={() => {
+                        if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
+                          handleDelete(item.id_tb_movie);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="bt-edit"
+                      onClick={() => {
+                        handleEdit(item.id_table_Movie);
+                      }}
                     >
                       Edit
                     </button>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleDelete(item.id_tb_movie)}
-                    >
-                      Delete
-                    </button> */}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4}>Tidak ada data</td>
-              </tr>
-            )}
+              );
+            })}
           </tbody>
         </table>
       </div>
+      `
     </>
   );
 };
-
 export default CrudAxios;
