@@ -1,12 +1,15 @@
 import axios from "axios";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+const API_URL = "http://localhost:3000/api/movie";
 
 const CrudAxios = () => {
   const [data, setData] = useState([]);
-  const [input, setInput] = useState({ movieTitle: "", movieYear: 0 });
+  const [input, setInput] = useState({ movieTitle: "", movieYear: "" });
+  const [editId, setEditId] = useState(null);
 
   const fetchData = () => {
-    axios.get("http://localhost:3000/api/movie").then((res) => {
+    axios.get(API_URL).then((res) => {
       setData(res.data);
     });
   };
@@ -14,10 +17,19 @@ const CrudAxios = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/movie", {
-        title: input.movieTitle,
-        year: input.movieYear,
-      });
+      if (editId) {
+        await axios.put(`${API_URL}/${editId}`, {
+          title: input.movieTitle,
+          year: input.movieYear,
+        });
+      } else {
+        await axios.post(API_URL, {
+          title: input.movieTitle,
+          year: input.movieYear,
+        });
+      }
+      setInput({ movieTitle: "", movieYear: "" });
+      setEditId(null);
       fetchData();
     } catch (err) {
       console.error(err);
@@ -29,22 +41,19 @@ const CrudAxios = () => {
     setInput({ ...input, [name]: value });
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/movie/${id}`);
-      fetchData();
-    } catch (err) {
-      alert(err);
-    }
+  const handleEdit = (movie) => {
+    setInput({
+      movieTitle: movie.title_tb_movie,
+      movieYear: movie.year_tb_movie,
+    });
+    setEditId(movie.id_tb_movie);
   };
 
-  const handleEdit = async (id) => {
-    try {
-      let respond = await axios.get(`http://localhost:3000/api/movie/${id}`);
-      console.log(respond);
-    } catch (err) {
-      alert(err);
-    }
+  const handleDelete = (id) => {
+    if (!confirm("Yakin ingin menghapus data ini?")) return;
+    axios.delete(`${API_URL}/${id}`).then(() => {
+      fetchData();
+    });
   };
 
   useEffect(() => {
@@ -62,6 +71,7 @@ const CrudAxios = () => {
             id="movieTitle"
             name="movieTitle"
             placeholder="Input Your Movie Title.."
+            value={input.movieTitle}
             onChange={handleChange}
             required
           />
@@ -72,11 +82,22 @@ const CrudAxios = () => {
             id="movieYear"
             name="movieYear"
             placeholder="Input Movie Year.."
+            value={input.movieYear}
             onChange={handleChange}
             required
           />
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value={editId ? "Update" : "Submit"} />
+          {editId && (
+            <input
+              type="button"
+              value="Cancel"
+              onClick={() => {
+                setInput({ movieTitle: "", movieYear: "" });
+                setEditId(null);
+              }}
+            />
+          )}
         </form>
       </div>
       <div className="div-table-movie">
@@ -110,7 +131,7 @@ const CrudAxios = () => {
                     <button
                       className="bt-edit"
                       onClick={() => {
-                        handleEdit(item.id_table_Movie);
+                        handleEdit(item);
                       }}
                     >
                       Edit
@@ -122,7 +143,6 @@ const CrudAxios = () => {
           </tbody>
         </table>
       </div>
-      `
     </>
   );
 };
