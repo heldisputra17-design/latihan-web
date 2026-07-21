@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import baseUrl from "../config/utils";
 
-const API_URL = "http://localhost:3000/api/movie";
+// const API_URL = "http://localhost:3000/api/movie";
 
 const CrudAxios = () => {
   const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ const CrudAxios = () => {
   const [editId, setEditId] = useState(null);
 
   const fetchData = () => {
-    axios.get(API_URL).then((res) => {
+    axios.get(`${baseUrl}/api/movie`).then((res) => {
       setData(res.data);
     });
   };
@@ -18,12 +19,12 @@ const CrudAxios = () => {
     event.preventDefault();
     try {
       if (editId) {
-        await axios.put(`${API_URL}/${editId}`, {
+        await axios.put(`${baseUrl}/${editId}`, {
           title: input.movieTitle,
           year: input.movieYear,
         });
       } else {
-        await axios.post(API_URL, {
+        await axios.post(`${baseUrl}`, {
           title: input.movieTitle,
           year: input.movieYear,
         });
@@ -51,7 +52,7 @@ const CrudAxios = () => {
 
   const handleDelete = (id) => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
-    axios.delete(`${API_URL}/${id}`).then(() => {
+    axios.delete(`${baseUrl}/${id}`).then(() => {
       fetchData();
     });
   };
@@ -62,7 +63,7 @@ const CrudAxios = () => {
 
   return (
     <>
-      <h1>CURD AXIOS</h1>
+      <h1>CRUD AXIOS</h1>
       <div className="div-input-movie">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movieTitle">Movie Title</label>
@@ -146,4 +147,4 @@ const CrudAxios = () => {
     </>
   );
 };
-export default CrudAxios;
+export default CrudAxios
