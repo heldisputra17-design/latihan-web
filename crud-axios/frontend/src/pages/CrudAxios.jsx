@@ -19,7 +19,7 @@ const CrudAxios = () => {
     event.preventDefault();
     try {
       if (editId) {
-        await axios.put(`${baseUrl}/api/movie${editId}`, {
+        await axios.put(`${baseUrl}/api/movie/${editId}`, {
           title: input.movieTitle,
           year: input.movieYear,
         });
@@ -52,7 +52,7 @@ const CrudAxios = () => {
 
   const handleDelete = (id) => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
-    axios.delete(`${baseUrl}/api/movie${id}`).then(() => {
+    axios.delete(`${baseUrl}/api/movie/${id}`).then(() => {
       fetchData();
     });
   };
