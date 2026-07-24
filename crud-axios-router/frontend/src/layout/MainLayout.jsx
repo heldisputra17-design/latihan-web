@@ -9,10 +9,10 @@ function MainLayout() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/crudAxios">CrudAxios</Link>
+            <Link to="/crudaxios">CrudAxios</Link>
           </li>
           <li>
-            <Link to="/TableCategory">Category</Link>
+            <Link to="/tablecategory">Category</Link>
           </li>
 
         </ul>

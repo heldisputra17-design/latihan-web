@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import baseUrl from "../../config/utils";
+import { useNavigate } from "react-router-dom";
+
 // import baseUrl from "../config/utils";
 
 const TableCategory = () => {
+  let navigate = useNavigate();
+
   const [data, setData] = useState([]);
-  const [input, setInput] = useState({ categoryName: "", categoryDesc: "" });
+  const [input, setInput] = useState({ categoryName: "", categoryDesc: "", });
   const [editId, setEditId] = useState(null);
 
   const fetchData = () => {
@@ -41,20 +45,20 @@ const TableCategory = () => {
     setInput({ ...input, [name]: value });
   };
 
-  const handleEdit = (category) => {
-    setInput({
-      categoryName: category.name_tb_category,
-      categoryDesc: category.desc_tb_category,
-    });
-    setEditId(category.id_tb_category);
-  };
-
+  const handleEdit = (id) => {
+   navigate(`/category/${id}/edit`)
+  }
   const handleDelete = (id) => {
+  
     if (!confirm("Yakin ingin menghapus data ini?")) return;
     axios.delete(`${baseUrl}/api/category/${id}`).then(() => {
       fetchData();
     });
   };
+
+  const addCategory = () => {
+    navigate('create')
+  }
 
   useEffect(() => {
     fetchData();
@@ -63,43 +67,7 @@ const TableCategory = () => {
   return (
     <>
       <h1>Table Category</h1>
-      <div className="div-input-movie">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="categoryName">Category Name</label>
-          <input
-            type="text"
-            id="categoryName"
-            name="categoryName"
-            placeholder="Input Category Name.."
-            value={input.categoryName}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="categoryDesc">Category Description</label>
-          <input
-            type="text"
-            id="categoryDesc"
-            name="categoryDesc"
-            placeholder="Input Category Description.."
-            value={input.categoryDesc}
-            onChange={handleChange}
-            required
-          />
-
-          <input type="submit" value={editId ? "Update" : "Submit"} />
-          {editId && (
-            <input
-              type="button"
-              value="Cancel"
-              onClick={() => {
-                setInput({ categoryName: "", categoryDesc: "" });
-                setEditId(null);
-              }}
-            />
-          )}
-        </form>
-      </div>
+    <button className="buttonCategory" onClick={addCategory} >Add Category</button>
       <div className="div-table-movie">
         <table>
           <thead>
@@ -131,7 +99,7 @@ const TableCategory = () => {
                     <button
                       className="bt-edit"
                       onClick={() => {
-                        handleEdit(item);
+                        handleEdit(item.id_tb_category);
                       }}
                     >
                       Edit

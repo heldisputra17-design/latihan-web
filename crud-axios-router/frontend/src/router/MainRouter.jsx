@@ -11,9 +11,10 @@ const MainRouter = () => {
      <Routes>
        <Route path="/" element={<MainLayout />}>
          <Route index element={<Homes />} />
-         <Route path="crudAxios" element={<CrudAxios />} />
-         <Route path="category" element={<TableCategory />} />
-         <Route path="category/create" element={<FormCategory />} />
+         <Route path="crudaxios" element={<CrudAxios />} />
+         <Route path="tablecategory" element={<TableCategory />} />
+         <Route path="tablecategory/create" element={<FormCategory />} />
+         <Route path="category/:id/edit" element={<FormCategory />} />
 
        </Route>
      </Routes>

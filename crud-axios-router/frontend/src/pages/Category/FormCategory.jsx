@@ -1,27 +1,37 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import baseUrl from "../../config/utils";
-// import baseUrl from "../config/utils";
+import { useParams, useNavigate } from "react-router-dom";
 
 const FormCategory = () => {
+  let {id} = useParams()
+  let navigate = useNavigate()
+
   const [data, setData] = useState([]);
-  const [input, setInput] = useState({ categoryName: "", categoryDesc: "" });
+  const [input, setInput] = useState({ categoryName: "", categoryDesc: ""});
   const [editId, setEditId] = useState(null);
 
   const fetchData = () => {
-    axios.get(`${baseUrl}/api/category`).then((res) => {
-      setData(res.data);
+    axios.get(`${baseUrl}/api/category/${id}`).then((res) => {
+      let { 
+        desc_tb_category: categoryDesc,
+        id_tb_category: categoryId,
+        name_tb_category: categoryName
+      } = res.data[0];
+      setInput({categoryDesc, categoryId, categoryName});
+      setEditId(categoryId);
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      if (editId) {
+      if (input.categoryId) {
         await axios.put(`${baseUrl}/api/category/${editId}`, {
           name: input.categoryName,
           desc: input.categoryDesc,
         });
+        navigate('/tablecategory');
       } else {
         await axios.post(`${baseUrl}/api/category`, {
           name: input.categoryName,
@@ -30,7 +40,6 @@ const FormCategory = () => {
       }
       setInput({ categoryName: "", categoryDesc: "" });
       setEditId(null);
-      fetchData();
     } catch (err) {
       console.error(err);
     }
@@ -56,92 +65,45 @@ const FormCategory = () => {
     });
   };
 
+  const resetForm = () => {
+    setInput({ categoryName: "", categoryDesc: "" });
+    setEditId(null);
+    navigate('/tablecategory');
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <>
-      <h1>Table Category</h1>
-      <div className="div-input-movie">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="categoryName">Category Name</label>
-          <input
-            type="text"
-            id="categoryName"
-            name="categoryName"
-            placeholder="Input Category Name.."
-            value={input.categoryName}
-            onChange={handleChange}
-            required
-          />
+    <h1>{id}</h1>
+      <h1>Edit Category</h1>
+     <div className="div-input-movie">
+  <form onSubmit={handleSubmit}>
+    <label htmlFor="categoryName">Category Name</label>
+    <input
+      type="text"
+      id="categoryName"
+      name="categoryName"
+      placeholder="Input Category Name.."
+      value={input.categoryName}
+      onChange={handleChange}
+      required
+    />
 
-          <label htmlFor="categoryDesc">Category Description</label>
-          <input
-            type="text"
-            id="categoryDesc"
-            name="categoryDesc"
-            placeholder="Input Category Description.."
-            value={input.categoryDesc}
-            onChange={handleChange}
-            required
-          />
-
-          <input type="submit" value={editId ? "Update" : "Submit"} />
-          {editId && (
-            <input
-              type="button"
-              value="Cancel"
-              onClick={() => {
-                setInput({ categoryName: "", categoryDesc: "" });
-                setEditId(null);
-              }}
-            />
-          )}
+    <label htmlFor="categoryDesc">Category Description</label>
+    <textarea
+      id="categoryDesc"
+      name="categoryDesc"
+      placeholder="Input Category Description.."
+      value={input.categoryDesc}
+      onChange={handleChange}
+      required
+    />
+     <input type="submit" value={editId ? "Update" : "Submit"} />
+     {editId && <input type="button" value="Cancel" onClick={resetForm} />}
         </form>
-      </div>
-      <div className="div-table-movie">
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name_tb_category}</td>
-                  <td>{item.desc_tb_category}</td>
-                  <td>
-                    <button
-                      className="bt-del"
-                      onClick={() => {
-                        if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
-                          handleDelete(item.id_tb_category);
-                        }
-                      }}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="bt-edit"
-                      onClick={() => {
-                        handleEdit(item);
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
       </div>
     </>
   );
