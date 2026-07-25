@@ -69,38 +69,51 @@ const TableCategory = () => {
           <h1 className="text-2xl font-bold">Daftar Category</h1>
           <button className="btn btn-primary" onClick={addCategory}>+ Add Category</button>
         </div>
-        <ul className="menu bg-base-200 rounded-box w-full">
-          {data.map((item, index) => {
-            return (
-              <li key={index} className="flex justify-between items-center">
-                <div>
-                  <span className="font-bold">{index + 1}. {item.name_tb_category}</span>
-                  <span className="ml-3 text-sm opacity-70">{item.desc_tb_category}</span>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    className="btn btn-error btn-sm"
-                    onClick={() => {
-                      if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
-                        handleDelete(item.id_tb_category);
-                      }
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-info btn-sm"
-                    onClick={() => {
-                      handleEdit(item.id_tb_category);
-                    }}
-                  >
-                    Edit
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="overflow-x-auto">
+          <table className="table table-zebra w-full bg-base-200 rounded-box border border-base-300">
+            <thead>
+              <tr className="text-left">
+                <th className="w-12">No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th className="w-44 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => {
+                return (
+                  <tr key={index} className="hover">
+                    <td className="text-center">{index + 1}</td>
+                    <td className="font-bold">{item.name_tb_category}</td>
+                    <td className="opacity-70">{item.desc_tb_category}</td>
+                    <td>
+                      <div className="flex gap-2 justify-center">
+                        <button
+                          className="btn btn-error btn-sm"
+                          onClick={() => {
+                            if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
+                              handleDelete(item.id_tb_category);
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          className="btn btn-info btn-sm"
+                          onClick={() => {
+                            handleEdit(item.id_tb_category);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

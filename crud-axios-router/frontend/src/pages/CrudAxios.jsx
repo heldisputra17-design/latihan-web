@@ -118,47 +118,51 @@ const CrudAxios = () => {
         </div>
       </div>
 
-      <table className="table w-full bg-base-200 rounded-box">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => {
-            return (
-              <tr key={index} className="hover">
-                <td>{index + 1}</td>
-                <td className="font-bold">{item.title_tb_movie}</td>
-                <td>{item.year_tb_movie}</td>
-                <td className="flex gap-2">
-                  <button
-                    className="btn btn-error btn-sm"
-                    onClick={() => {
-                      if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
-                        handleDelete(item.id_tb_movie);
-                      }
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-info btn-sm"
-                    onClick={() => {
-                      handleEdit(item);
-                    }}
-                  >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="table table-zebra w-full bg-base-200 rounded-box border border-base-300">
+          <thead>
+            <tr className="text-left">
+              <th className="w-12">No</th>
+              <th>Title</th>
+              <th className="w-24">Year</th>
+              <th className="w-44 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => {
+              return (
+                <tr key={index} className="hover">
+                  <td className="text-center">{index + 1}</td>
+                  <td className="font-bold">{item.title_tb_movie}</td>
+                  <td className="text-center">{item.year_tb_movie}</td>
+                  <td>
+                    <div className="flex gap-2 justify-center">
+                      <button
+                        className="btn btn-error btn-sm"
+                        onClick={() => {
+                          if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
+                            handleDelete(item.id_tb_movie);
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="btn btn-info btn-sm"
+                        onClick={() => {
+                          handleEdit(item);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
