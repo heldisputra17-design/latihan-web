@@ -1,4 +1,3 @@
-require('dotenv').config()
 const connectionPool = require("../config/db")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -6,9 +5,9 @@ const jwt = require("jsonwebtoken")
 
 const register = (req, res) => {
    let {email, nama, pass} = req.body
-   let queryText = `SELECT * FROM tb_user WHERE email_tb_user = "${email}"`
+   let queryText = `SELECT * FROM tb_user WHERE email_tb_user = ?`
 
-   connectionPool.query(queryText, (err, result) => { 
+   connectionPool.query(queryText, [email], (err, result) => {
       if(err) {
         console.log(err)
         return res.status(500).json({
@@ -33,9 +32,9 @@ const register = (req, res) => {
       }
 
       let insertQuery = `INSERT INTO tb_user(email_tb_user, nama_tb_user, pass_tb_user)
-                         VALUES ('${email}', '${nama}', '${hashedPassword}')`
+                         VALUES (?, ?, ?)`
 
-      connectionPool.query(insertQuery, (err, result) => {
+      connectionPool.query(insertQuery, [email, nama, hashedPassword], (err, result) => {
           if(err) {
         console.log(err)
         return res.status(500).json({
@@ -43,23 +42,22 @@ const register = (req, res) => {
          Message: err.message
         })
       }
-     res.status(200)
+     res.status(201)
      res.json({Message: "User Berhasil di Buat",
                Status : "Succes",
                Result : result
      })
    })
- })
-   
-})
+  })
 
+})
 }
 
 const login = (req, res) => {
   let {email, pass} = req.body
-  let queryText =`SELECT * FROM tb_user WHERE email_tb_user = "${email}"`
+  let queryText =`SELECT * FROM tb_user WHERE email_tb_user = ?`
 
-  connectionPool.query(queryText, (err, result) => {
+  connectionPool.query(queryText, [email], (err, result) => {
               if(err) {
         console.log(err)
         return res.status(500).json({

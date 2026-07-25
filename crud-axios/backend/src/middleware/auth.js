@@ -1,6 +1,5 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const { authPlugins } = require('mysql2')
 
 const authJWT = (req, res, next) => {
    const authHeader = req.header('Authorization')

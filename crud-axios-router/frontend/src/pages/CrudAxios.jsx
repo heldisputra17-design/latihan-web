@@ -2,8 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import baseUrl from "../config/utils";
 
-// const API_URL = "http://localhost:3000/api/movie";
-
 const CrudAxios = () => {
   const [data, setData] = useState([]);
   const [input, setInput] = useState({ movieTitle: "", movieYear: "" });
@@ -62,89 +60,106 @@ const CrudAxios = () => {
   }, []);
 
   return (
-    <>
-      <h1>CRUD AXIOS</h1>
-      <div className="div-input-movie">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="movieTitle">Movie Title</label>
-          <input
-            type="text"
-            id="movieTitle"
-            name="movieTitle"
-            placeholder="Input Your Movie Title.."
-            value={input.movieTitle}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="movieYear">Movie Year</label>
-          <input
-            type="number"
-            id="movieYear"
-            name="movieYear"
-            placeholder="Input Movie Year.."
-            value={input.movieYear}
-            onChange={handleChange}
-            required
-          />
-
-          <input type="submit" value={editId ? "Update" : "Submit"} />
-          {editId && (
-            <input
-              type="button"
-              value="Cancel"
-              onClick={() => {
-                setInput({ movieTitle: "", movieYear: "" });
-                setEditId(null);
-              }}
-            />
-          )}
-        </form>
+    <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Daftar Movie</h1>
       </div>
-      <div className="div-table-movie">
-        <table>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Title</th>
-              <th>Year</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.title_tb_movie}</td>
-                  <td>{item.year_tb_movie}</td>
-                  <td>
-                    <button
-                      className="bt-del"
-                      onClick={() => {
-                        if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
-                          handleDelete(item.id_tb_movie);
-                        }
-                      }}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="bt-edit"
-                      onClick={() => {
-                        handleEdit(item);
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+
+      <div className="card bg-base-100 shadow-xl w-full max-w-md mb-6">
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="form-control w-full mb-4">
+              <label className="label" htmlFor="movieTitle">
+                <span className="label-text">Movie Title</span>
+              </label>
+              <input
+                type="text"
+                id="movieTitle"
+                name="movieTitle"
+                placeholder="Input Your Movie Title.."
+                className="input input-bordered w-full"
+                value={input.movieTitle}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-control w-full mb-4">
+              <label className="label" htmlFor="movieYear">
+                <span className="label-text">Movie Year</span>
+              </label>
+              <input
+                type="number"
+                id="movieYear"
+                name="movieYear"
+                placeholder="Input Movie Year.."
+                className="input input-bordered w-full"
+                value={input.movieYear}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="flex gap-2 mt-4">
+              <input type="submit" value={editId ? "Update" : "Submit"} className="btn btn-success" />
+              {editId && (
+                <input
+                  type="button"
+                  value="Cancel"
+                  className="btn btn-ghost"
+                  onClick={() => {
+                    setInput({ movieTitle: "", movieYear: "" });
+                    setEditId(null);
+                  }}
+                />
+              )}
+            </div>
+          </form>
+        </div>
       </div>
-    </>
+
+      <table className="table w-full bg-base-200 rounded-box">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => {
+            return (
+              <tr key={index} className="hover">
+                <td>{index + 1}</td>
+                <td className="font-bold">{item.title_tb_movie}</td>
+                <td>{item.year_tb_movie}</td>
+                <td className="flex gap-2">
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => {
+                      if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
+                        handleDelete(item.id_tb_movie);
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="btn btn-info btn-sm"
+                    onClick={() => {
+                      handleEdit(item);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 export default CrudAxios

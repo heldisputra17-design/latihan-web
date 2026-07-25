@@ -117,7 +117,7 @@ const connectionPool = require("../config/db.js")
 
 
 const readMovie = (req, res) => {
-   let queryText = 'SELECT * FROM db_movie.tb_movies'
+   let queryText = 'SELECT * FROM tb_movies'
 
    connectionPool.query(queryText, (err, data) => {
       if(err){
@@ -130,8 +130,8 @@ const readMovie = (req, res) => {
 
 const readMovieById = (req, res) => {
    let {id} = req.params
-   let queryText = `SELECT * FROM tb_movies WHERE id_tb_movie = ${id}`
-      connectionPool.query(queryText, (err, data) => {
+   let queryText = `SELECT * FROM tb_movies WHERE id_tb_movie = ?`
+      connectionPool.query(queryText, [id], (err, data) => {
       if(err){
          console.log(err)
          return
@@ -143,8 +143,8 @@ const readMovieById = (req, res) => {
 const createMovie = (req, res) => {
    let {title, year} = req.body
    let queryText = `INSERT INTO tb_movies (title_tb_movie, year_tb_movie)
-                    VALUES ('${title}', ${year})`
-   connectionPool.query(queryText, (err, data) => {
+                     VALUES (?, ?)`
+   connectionPool.query(queryText, [title, year], (err, data) => {
       if(err){
        console.log(err)
        return
@@ -157,9 +157,9 @@ const updateMovie = (req, res) => {
    let {title, year} = req.body
    let {id} = req.params
    let queryText = `UPDATE tb_movies
-                    SET title_tb_movie = '${title}', year_tb_movie = ${year}
-                    WHERE id_tb_movie = ${id}`
-      connectionPool.query(queryText, (err, data) => {
+                     SET title_tb_movie = ?, year_tb_movie = ?
+                     WHERE id_tb_movie = ?`
+      connectionPool.query(queryText, [title, year, id], (err, data) => {
       if(err){
        console.log(err)
        return
@@ -170,8 +170,8 @@ const updateMovie = (req, res) => {
 
 const deleteMovie = (req, res) => {
    let {id} = req.params
-   let queryText = `DELETE FROM tb_movies WHERE id_tb_movie = ${id}`
-       connectionPool.query(queryText, (err, data) => {
+   let queryText = `DELETE FROM tb_movies WHERE id_tb_movie = ?`
+       connectionPool.query(queryText, [id], (err, data) => {
        if(err) {
          console.log(err)
          return
